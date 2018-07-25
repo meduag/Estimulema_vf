@@ -1,0 +1,6 @@
+ 
+revisar codigo do plot
+
+teve no inicio e meio do treinamento mudança nos PE mantendo a carga e compensando fadiga
+
+no final foi retirada a carga e deixado os mesmos parametros para verificar os valores de fadiga

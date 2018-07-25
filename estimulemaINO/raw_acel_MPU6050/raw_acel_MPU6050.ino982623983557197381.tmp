@@ -1,0 +1,40 @@
+#include <Wire.h>
+
+int16_t ax, ay, az;
+bool c = 1;
+
+void setup() {
+  Serial.begin(2000000);
+  Wire.setClock(400000);
+  Wire.begin();
+  delay(250);
+
+  Wire.beginTransmission(0x68);
+  Wire.write(0x6B);
+  Wire.write(0x00);
+  Wire.endTransmission();
+}
+
+void loop() {
+  Wire.beginTransmission(0x68);
+  Wire.write(0x3B);
+  Wire.endTransmission();
+
+  long tf = micros() + 1e6;
+  while (micros() < tf && c) {
+    Wire.requestFrom(0x68, 6);
+    ax = Wire.read() << 8 | Wire.read();
+    ay = Wire.read() << 8 | Wire.read();
+    az = Wire.read() << 8 | Wire.read();
+
+    Serial.print("X = ");
+    Serial.print(ax);
+    Serial.print("Y = ");
+    Serial.print(ay);
+    Serial.print("Z = ");
+    Serial.println(az);
+    //delay(250);
+  }
+  c = 0;
+
+}
